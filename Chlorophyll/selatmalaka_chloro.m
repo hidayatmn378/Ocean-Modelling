@@ -16,30 +16,30 @@ avsubchloro_value = nanmean(subchloro_value,4);
 
 % Permute array dimensions
 chloro2_value = permute(avsubchloro_value,[2,1]);
-
+[m n] = size(chloro2_value); 
 %Cleansing 
-for i=1:53
-    for j=1:30
+for i=1:m
+    for j=1:10
          chloro2_value(i,j)=nan;
     end
 end
-for i=1:30
+for i=25:m
     for j=1:50
          chloro2_value(i,j)=nan;
     end
 end
-for i=1:64
-    for j=110:119
+for i=50:m
+    for j=1:90
          chloro2_value(i,j)=nan;
     end
 end
-for i=20:64
-    for j=90:119
+for i=1:70
+    for j=150:n
          chloro2_value(i,j)=nan;
     end
 end
-for i=1:5
-    for j=100:110
+for i=70:90
+    for j=200:n
          chloro2_value(i,j)=nan;
     end
 end
