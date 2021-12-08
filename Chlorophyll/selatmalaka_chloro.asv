@@ -1,0 +1,62 @@
+clc
+clear all
+
+% Better visualization using m_map
+
+%%
+% Display contents of a NetCDF source
+ncdisp('chloro0217.nc');
+
+% Read variable data from a NetCDF source
+chloro_value = ncread('chloro0217.nc','chlorophyll');
+subchloro_value = chloro_value(:,:,1,:);
+
+% Mean value, ignoring NaNs for 4 dimension
+avsubchloro_value = nanmean(subchloro_value,4);
+
+% Permute array dimensions
+chloro2_value = permute(avsubchloro_value,[2,1]);
+
+% % Visualization
+% figure('Name','Chlorophyll-a Data','NumberTitle','off');
+% [c,h] = contourf(chloro2_value)
+% clabel(c,h)
+% grid on
+% colorbar
+% title('Chlorophyll-a in February 2017')
+% xlabel('Longitude')
+% ylabel('Latitude')
+
+%%
+% Read variable data from a NetCDF source
+y0=ncread(C,'latitude');
+x0=ncread(C,'longitude');
+
+% Domain 
+LONLIMS= [95.5  105]; % ubah sesuai domain
+LATLIMS= [0.5  5.5]; % ubah sesuai domain
+
+lon=[-180:5:180]; 
+lat=[90:-5:-90];
+bts=[0:1:15];
+
+m_proj('mercator','lon',LONLIMS,'lat',LATLIMS);
+m_pcolor(x0,y0,log10(chloro2_value));
+m_pcolor(x1,y1,log10(chloro21_value));
+
+% Visualization
+figure('Name','Chlorophyll-a Data (2)','NumberTitle','off');
+subplot(1,2,1)
+shading interp
+hold on
+[c,h]=m_contour(x0,y0,chloro2_value,bts,'linewidth',2)
+hold on
+clabel(c,h,bts,'labelspacing',1444,'fontsize',12)
+caxis([0.1 15])
+caxis([-1 1]) 
+colorbar('SouthOutside','XTick',[-1 0  0.3010 0.4771  0.669  1],'XTickLabel',{'0.1','1','2','3','5','10'})
+m_gshhs_h('patch',[0.5 0.5 0.5]);
+m_grid('linewidth',1,'tickdir','out');
+title('Clorophyll-a')
+% print('gambar','-dpng')
+
