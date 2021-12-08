@@ -1,7 +1,7 @@
 # Ocean-Modelling
 Read and Plot NetCDF files using MATLAB
 
-List website to download the data which used in this repo
+List website to download the data which is used in this repo
 - Hycom.org
   to download the data: water temperature, salinity, current velocity, water surface elevation (SSH)
 - ecmwf.int
