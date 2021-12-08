@@ -6,7 +6,7 @@ clear all
 %%
 % Display contents of a NetCDF source
 water_vel='selatmalaka.nc4'
-ncdisp(water_vel)
+ncdisp(strcat(water_vel))
  
 % Read variable data from a NetCDF source
 u=ncread(water_vel,'water_u');
@@ -26,20 +26,21 @@ vs=permute(nsub_v,[2,1]);
 %% 
 % Read variable data from a NetCDF source
 r=8
-x0=ncread(water_vel,'lon')';
-y0=ncread(water_vel,'lat')';
- 
+x=ncread(water_vel,'lon')';
+y=ncread(water_vel,'lat')';
+
+[x0,y0]=meshgrid(x,y);
 xx=x0(1:r:end,1:r:end);
 yy=y0(1:r:end,1:r:end);
  
-% return to norm and carefully computed to avoid underflow and overflow
-p=2
 uu=us(1:r:end,1:r:end);
 vv=vs(1:r:end,1:r:end);
+% return to norm and carefully computed to avoid underflow and overflow
+p=2
 w0=hypot(uu,vv);
  
 % domain
-LONLIMS= [116 120.5]; 
+LONLIMS= [95.5 105]; 
 LATLIMS= [0.5 5.5]; 
  
 % Longitude and Latitude (default)
@@ -53,12 +54,13 @@ m_proj('mercator','lon',LONLIMS,'lat',LATLIMS);
 % Visualization
 figure('Name','Velocity u,v Data','NumberTitle','off');
 m_pcolor(xx,yy,w0)
-[c,h]=m_contour(x0,y0,w0,bts,'linewidth',1);
+[c,h]=m_contour(xx,yy,w0,bts,'linewidth',1);
 clabel(c,h,bts)
 hold on
+colorbar
 colormap('jet')
 caxis([0 5])
-m_quiver(xx,yy,p*uu,p*vv,0,'k')
+m_quiver(xx,yy,p*uu,p*vv,3,'k')
 m_gshhs_h('patch',[0.4 0.4 0.4]);
 m_grid('linewi',2,'tickdir','out');
 xlabel('Longitude')
