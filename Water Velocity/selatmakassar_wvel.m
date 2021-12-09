@@ -6,7 +6,7 @@ clear all
 %%
 % Display contents of a NetCDF source
 water_vel='selatmakassar.nc4'
-ncdisp(strcat(water_vel))
+ncdisp(water_vel)
  
 % Read variable data from a NetCDF source
 u=ncread(water_vel,'water_u');
