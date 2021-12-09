@@ -32,15 +32,16 @@ y=ncread(water_vel,'lat')';
 [x0,y0]=meshgrid(x,y);
 xx=x0(1:r:end,1:r:end);
 yy=y0(1:r:end,1:r:end);
- 
+
+p=2 
 uu=us(1:r:end,1:r:end);
 vv=vs(1:r:end,1:r:end);
+
 % return to norm and carefully computed to avoid underflow and overflow
-p=2
-w0=hypot(uu,vv);
+w0=hypot(us,vs);
  
 % domain
-LONLIMS= [78.2 96.7]; 
+LONLIMS= [78.20 96.7]; 
 LATLIMS= [5.5 24.6]; 
  
 % Longitude and Latitude (default)
@@ -50,16 +51,20 @@ bts=[0:0.1:5];
  
 % Initializes map projections info
 m_proj('mercator','lon',LONLIMS,'lat',LATLIMS);
- 
+
+%%
 % Visualization
 figure('Name','Velocity u,v Data','NumberTitle','off');
-m_pcolor(xx,yy,w0)
-[c,h]=m_contour(xx,yy,w0,bts,'linewidth',1);
+m_pcolor(x0,y0,w0)
+[c,h]=m_contour(x0,y0,w0,bts,'linewidth',1);
 clabel(c,h,bts)
 hold on
+
+% shading interp
 colorbar
 colormap('jet')
-caxis([0 5])
+uu = uu./hypot(uu,vv);
+vv = vv./hypot(uu,vv);
 m_quiver(xx,yy,p*uu,p*vv,0,'k')
 m_gshhs_h('patch',[0.4 0.4 0.4]);
 m_grid('linewi',2,'tickdir','out');
