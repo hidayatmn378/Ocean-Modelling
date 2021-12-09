@@ -18,33 +18,33 @@ s3=permute(s2,[2,1]);
 [m n]=size(s3)
  
 
-% for i=1:m   % Latitude part
-%     for j=1:n   % Longitude part
-%         if s3(i,j)>=0;
-%             s3(i,j)=NaN;
-%         end
-%     end
-% end
-% for i=1:500     
-%     for j=1:250     
-%          s3(i,j)=NaN;
-%     end
-% end
-% for i=1:300
-%     for j=1:500
-%          s3(i,j)=NaN;
-%     end
-% end
-% for i=150:600
-%     for j=900:1141
-%          s3(i,j)=NaN;
-%     end
-% end
-% for i=100:150
-%     for j=1000:1141
-%          s3(i,j)=NaN;
-%     end
-% end
+for i=1:m   % Latitude part
+    for j=1:n   % Longitude part
+        if s3(i,j)>=0;
+            s3(i,j)=NaN;
+        end
+    end
+end
+for i=1:500     
+    for j=1:250     
+         s3(i,j)=NaN;
+    end
+end
+for i=1:300
+    for j=1:500
+         s3(i,j)=NaN;
+    end
+end
+for i=150:600
+    for j=900:1141
+         s3(i,j)=NaN;
+    end
+end
+for i=100:150
+    for j=1000:1141
+         s3(i,j)=NaN;
+    end
+end
 
 % Read variable data from a NetCDF source
 lat=ncread('selatmalaka.nc','latitude'); 

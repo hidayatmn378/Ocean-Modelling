@@ -57,7 +57,7 @@ m_proj('mercator','lon',LONLIMS,'lat',LATLIMS);
 figure('Name','Velocity u,v Data','NumberTitle','off');
 m_pcolor(x0,y0,w0)
 [c,h]=m_contour(x0,y0,w0,bts,'linewidth',1);
-clabel(c,h,bts)
+clabel(c,h,'labelspacing',1000)
 hold on
 
 % shading interp
@@ -65,7 +65,8 @@ colorbar
 colormap('jet')
 uu = uu./hypot(uu,vv);
 vv = vv./hypot(uu,vv);
-m_quiver(xx,yy,p*uu,p*vv,0,'k')
+arrows = m_quiver(xx,yy,p*uu,p*vv,0,'k')
+set(arrows,'AutoScale','on', 'AutoScaleFactor', 0.5)
 m_gshhs_h('patch',[0.4 0.4 0.4]);
 m_grid('linewi',2,'tickdir','out');
 xlabel('Longitude')
