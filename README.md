@@ -1,5 +1,5 @@
 # Ocean-Modelling
-Read and Plot NetCDF files using MATLAB
+Read and Plot NetCDF files using MATLAB and Python (Jupyter-Notebook)
 
 List website to download the data which is used in this repo
 - Hycom.org
